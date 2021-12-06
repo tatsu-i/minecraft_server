@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  server:
+    image: itzg/minecraft-server:latest
+    restart: always
+    volumes:
+      - ./mc_data:/data
+    environment:
+      - EULA=TRUE
+    ports:
+      - "25565:25565"
+
+  ngrok:
+    build: ./ngrok
+    network_mode: host
+    environment:
+      NGROK_AUTH: "${NGROK_AUTH}"
+      NGROK_PORT: 25565
+      NGROK_PROTOCOL: "TCP"
+    restart: always
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash-oss:7.12.0
+    restart: always
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+      - ./mc_data:/data
+
+  notify-server:
+    build: ./notify-server
+    volumes:
+      - ./notify.json:/conf/notify.json
+    restart: always
+    depends_on:
+      - logstash
