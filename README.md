@@ -35,6 +35,12 @@ $ docker-compose exec server bash
 # rcon-cli /op tatsui666
 ```
 
+## サーバに接続する
+Java版のクライアントから以下のコマンドで出力された接続先に接続します。
+```
+$ curl -s http://localhost:4040/api/tunnels |jq -r '.tunnels[].public_url' | sed -e 's/tcp:\/\///'
+```
+
 ## 通知サーバの起動
 [こちら](https://notify-bot.line.me/my/)からLINEのパーソナルアクセストークンを取得します。  
 取得が終わったら、トークンをコピーし`notify.json`にコピーしたトークンを記述します。  
