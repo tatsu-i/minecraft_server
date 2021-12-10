@@ -69,3 +69,9 @@ $ docker-compose stop server logstash notify-server && rm -rf mc_data/world && d
 ```
 $ docker-compose up -d notify-server
 ```
+
+## シード値を固定する
+シード値を固定することで、決まったワールドを生成することが出来ます。
+```
+$ sed -e 's/level-seed=$/level-seed=6686742573104177548/' -i ./mc_data/server.properties
+```
