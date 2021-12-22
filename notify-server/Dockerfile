@@ -17,7 +17,6 @@ ENV LANG=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 
-RUN pip install git+https://github.com/MtkN1/pybybit.git
 COPY ./requirements.txt /requirements.txt
 RUN pip install -r requirements.txt
 
